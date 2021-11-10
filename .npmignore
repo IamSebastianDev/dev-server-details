@@ -6,7 +6,6 @@ src
 tsconfig.json
 
 *.zip
-main.js
 
 # General
 .DS_Store
