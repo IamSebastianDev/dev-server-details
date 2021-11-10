@@ -166,4 +166,4 @@ You can use these values with the curly braces syntax demonstrated above.
 
 ## License
 
-Watcherbot is licensed under the [MIT License](https://opensource.org/licenses/MIT)
+dev-server-details is licensed under the [MIT License](https://opensource.org/licenses/MIT)
