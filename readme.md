@@ -2,7 +2,7 @@
 
 A small library to provide information of your development setup inside the console.
 
-![A picture as Example of the output](./readme-exampleimage.png)
+![A picture as Example of the output](https://github.com/IamSebastianDev/dev-server-details/blob/master/readme-exampleimage.png)
 
 > Note: This is the default theme with the the 'Gruvbox Material Dark' VS-Code theme.
 
