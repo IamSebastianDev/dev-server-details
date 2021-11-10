@@ -1,9 +1,10 @@
 {
   "name": "dev-server-details",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Ligtweight package to print details about your dev enviroment to the console when starting a server",
   "main": "./dist/main.js",
   "module": "./dist/main.min.mjs",
+  "types": "./dist/main.d.ts",
   "scripts": {
     "dev": "rollup --config rollup.config.js --watch",
     "build": "rollup --config rollup.config.js",
