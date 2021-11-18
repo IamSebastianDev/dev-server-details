@@ -2,6 +2,7 @@ export var __esModule: boolean;
 /** @format */
 /**
  * @type { {
+ * 	pallete: function,
  * 	reset: string,
  * 	modify: {
  * 		bold: string,
@@ -38,6 +39,7 @@ export var __esModule: boolean;
  * @description an object containing the escape sequences for the text, background and modification sequences
  */
 export const colours: {
+    pallete: Function;
     reset: string;
     modify: {
         bold: string;
@@ -81,14 +83,24 @@ export const colours: {
  *
  * @description function to print information of a started dev server to the console. The information include the local * & internal adress of the started server as well as the enviroment flag.
  *
- * @returns { {} } an object containing details
+ * @returns { {
+ * 	theme: object,
+ * 	localIP: string,
+ * 	localHostname: string,
+ * 	enviroment: string
+ * } } an object containing details
  */
 export function presentDetails({ PORT, userTheme, isSecure, userText }: {
     PORT: number;
     userTheme: {};
     isSecure: boolean;
     userText: {};
-}): {};
+}): {
+    theme: object;
+    localIP: string;
+    localHostname: string;
+    enviroment: string;
+};
 export var themes: Readonly<{
     __proto__: any;
     Default: {

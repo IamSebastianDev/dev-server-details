@@ -8,7 +8,7 @@ import { colours } from './colours.js';
 import * as themes from './themes.js';
 
 const defaultText = {
-	heading: 'Dev-Server-Details:',
+	heading: `[{{time}}] {{dir}}${colours.reset} 🤖`,
 	main: `{{enviroment}} Enviroment served to:`,
 	text: [
 		'Local:		{{local}}',
@@ -34,7 +34,8 @@ const getLocalIP = () => {
 	// check if at least one of the properties is not undefined.
 
 	if (eth0 === undefined && en0 === undefined) {
-		throw new Error(`DSD: No local Network Interface could be found.`);
+		console.warn(`DSD: No local Network Interface could be found.`);
+		return { error: true, address: `No network address exposed.` };
 	}
 
 	/**
@@ -55,7 +56,7 @@ const getLocalIP = () => {
 
 	const { address } = adapter.find((address) => address.family === 'IPv4');
 
-	return address;
+	return { error: false, string: address };
 };
 
 /**
@@ -69,10 +70,23 @@ const getLocalIP = () => {
  *
  * @description function to print information of a started dev server to the console. The information include the local * & internal adress of the started server as well as the enviroment flag.
  *
- * @returns { {} } an object containing details
+ * @returns { {
+ * 	theme: object,
+ * 	localIP: string,
+ * 	localHostname: string,
+ * 	enviroment: string
+ * } } an object containing details
  */
 
 const presentDetails = ({ PORT, userTheme, isSecure = false, userText }) => {
+	// check if PORT is of type number and exists. A PORT property should always be passed to the method.
+
+	if (PORT === undefined || PORT === NaN) {
+		throw new TypeError(
+			`${PORT} is not a Number. Expected a value of type Number for 'PORT'.`
+		);
+	}
+
 	/**
 	 * @type { String }
 	 * @private
@@ -131,10 +145,13 @@ const presentDetails = ({ PORT, userTheme, isSecure = false, userText }) => {
 
 			const vars = {
 				enviroment,
-				local: composeAddress('localhost'),
+				local: composeAddress({ error: false, string: 'localhost' }),
 				ip: composeAddress(localIP),
 				hostname: composeAddress(localHostname),
 				port: PORT,
+				cwd: process.cwd(),
+				dir: process.cwd().split('/').pop(),
+				time: new Date().toLocaleTimeString(),
 			};
 
 			const toParse =
@@ -148,7 +165,7 @@ const presentDetails = ({ PORT, userTheme, isSecure = false, userText }) => {
 	};
 
 	/**
-	 * @type { string }
+	 * @type { Object }
 	 * @private
 	 * @description the ipv4 address of the system
 	 */
@@ -156,12 +173,15 @@ const presentDetails = ({ PORT, userTheme, isSecure = false, userText }) => {
 	const localIP = getLocalIP();
 
 	/**
-	 * @type { string }
+	 * @type { Object }
 	 * @private
 	 * @description the hostname of the system
 	 */
 
-	const localHostname = hostname();
+	const localHostname = {
+		error: localIP.error,
+		string: localIP.error ? localIP.address : hostname(),
+	};
 
 	/**
 	 * @description the composeAddress method is used to create a complete address string
@@ -172,10 +192,14 @@ const presentDetails = ({ PORT, userTheme, isSecure = false, userText }) => {
 	 * Port
 	 */
 
-	const composeAddress = (addressString) => {
-		return `http${isSecure ? 's' : ''}://${addressString}:${
-			colours.modify.bold
-		}${PORT}`;
+	const composeAddress = (address) => {
+		if (!address.error) {
+			return `http${isSecure ? 's' : ''}://${address.string}:${
+				colours.modify.bold
+			}${PORT}`;
+		}
+
+		return 'No network address exposed.';
 	};
 
 	/**
@@ -217,7 +241,12 @@ ${buildAddressSection()}
 ${composeLine('notice')}
 `);
 
-	return { theme, localIP, localHostname, enviroment };
+	return {
+		theme,
+		localIP: localIP.string,
+		localHostname: localHostname.string,
+		enviroment,
+	};
 };
 
 export { presentDetails, colours, themes };

@@ -2,6 +2,7 @@
 
 /**
  * @type { {
+ * 	pallete: function,
  * 	reset: string,
  * 	modify: {
  * 		bold: string,
@@ -39,6 +40,27 @@
  */
 
 export const colours = {
+	/**
+	 * @public
+	 * @description method to display the colours to the console to give an overview of the available colors
+	 */
+
+	pallete() {
+		const char = `\u2588`;
+		const drawLine = (colorName, colorCode) => {
+			console.log(
+				`${colorCode}${char}${char}${char}${char} ${colorName}`
+			);
+		};
+
+		for (const colorName in this.text) {
+			if (Object.hasOwnProperty.call(this.text, colorName)) {
+				const colorCode = this.text[colorName];
+
+				drawLine(colorName, colorCode);
+			}
+		}
+	},
 	/**
 	 * @property { string }
 	 * @description the reset sequence that resets the string to the normal console output. This is called at the end
