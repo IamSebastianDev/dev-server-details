@@ -45,16 +45,19 @@ const getLocalIP = () => {
 	 * It returns the not undefined adapter.
 	 */
 
-	const adapter = eth0 ? eth0 : en0;
+	const adapter = eth0 || en0;
 
 	/**
 	 * @property { string } address
 	 * @private
 	 * @description the address property is the extracted IP4 string from the found network addapter and is what will
-	 * be returned by the method.
+	 * be returned by the method. Node 18.0 introduced a breaking change in the networkInterfaces method, in which the
+	 * returned adapter object's family property is now a number instead of a string.
 	 */
 
-	const { address } = adapter.find((address) => address.family === 'IPv4');
+	const { address } = adapter.find(
+		(address) => address.family === 'IPv4' || address.family === 4
+	);
 
 	return { error: false, string: address };
 };
