@@ -1,6 +1,6 @@
 {
 	"name": "dev-server-details",
-	"version": "1.3.0",
+	"version": "1.3.1",
 	"description": "Lightweight package to print details about your dev environment to the console when starting a server",
 	"main": "./dist/main.js",
 	"module": "./dist/main.min.mjs",
