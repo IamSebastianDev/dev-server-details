@@ -74,22 +74,22 @@ export const colours: {
 };
 /**
  * @param { Object } param0 - the object passed to the function to configure it's behaviour.
- * @param { Number } param0.PORT - the Port number passed to the function.
- * @param { {}? } param0.userTheme - the theme for the console. Should be an object containing the color properties
+ * @param { number | string } param0.PORT - the Port number passed to the function.
+ * @param { Object } [param0.userTheme] - the theme for the console. Should be an object containing the color properties
  * needed for the theme.
- * @param { Boolean? } param0.isSecure - a boolean indicating if the dev server has a secure connection or not. Defaults
+ * @param { Boolean } [param0.isSecure] - a boolean indicating if the dev server has a secure connection or not. Defaults
  * to false.
- * @param { {}? } param0.userText - an object containing properties to supply custom text to the function.
+ * @param { Object } [param0.userText] - an object containing properties to supply custom text to the function.
  *
  * @description function to print information of a started dev server to the console. The information include the local * & internal address of the started server as well as the environment flag.
  *
  * @returns { void }
  */
 export function presentDetails({ PORT, userTheme, isSecure, userText }: {
-    PORT: number;
-    userTheme: {} | null;
-    isSecure: boolean | null;
-    userText: {} | null;
+    PORT: number | string;
+    userTheme?: any;
+    isSecure?: boolean;
+    userText?: any;
 }): void;
 export var themes: Readonly<{
     __proto__: any;
