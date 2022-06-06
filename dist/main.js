@@ -232,7 +232,7 @@ var themes = /*#__PURE__*/Object.freeze({
 
 const defaultText = {
 	heading: `[{{time}}] {{dir}}${colours.reset} 🤖`,
-	main: `{{enviroment}} Enviroment served to:`,
+	main: `{{environment}} Environment served to:`,
 	text: [
 		'Local:		{{local}}',
 		'On your network:	{{ip}}',
@@ -273,7 +273,7 @@ const getLocalIP = () => {
 	/**
 	 * @property { string } address
 	 * @private
-	 * @description the address property is the extracted IP4 string from the found network addapter and is what will
+	 * @description the address property is the extracted IP4 string from the found network adapter and is what will
 	 * be returned by the method. Node 18.0 introduced a breaking change in the networkInterfaces method, in which the
 	 * returned adapter object's family property is now a number instead of a string.
 	 */
@@ -287,21 +287,16 @@ const getLocalIP = () => {
 
 /**
  * @param { Object } param0 - the object passed to the function to configure it's behaviour.
- * @param { Number } param0.PORT - the Portnumber passed to the function.
- * @param { {} } param0.userTheme - the theme for the console. Should be an object containing the color properties
+ * @param { Number } param0.PORT - the Port number passed to the function.
+ * @param { {}? } param0.userTheme - the theme for the console. Should be an object containing the color properties
  * needed for the theme.
- * @param { Boolean } param0.isSecure - a boolean indicating if the dev server has a secure connection or not. Defaults
+ * @param { Boolean? } param0.isSecure - a boolean indicating if the dev server has a secure connection or not. Defaults
  * to false.
- * @param { {} } param0.userText - an object containing properties to supply custom text to the function.
+ * @param { {}? } param0.userText - an object containing properties to supply custom text to the function.
  *
- * @description function to print information of a started dev server to the console. The information include the local * & internal adress of the started server as well as the enviroment flag.
+ * @description function to print information of a started dev server to the console. The information include the local * & internal address of the started server as well as the environment flag.
  *
- * @returns { {
- * 	theme: object,
- * 	localIP: string,
- * 	localHostname: string,
- * 	enviroment: string
- * } } an object containing details
+ * @returns { void }
  */
 
 const presentDetails = ({ PORT, userTheme, isSecure = false, userText }) => {
@@ -316,11 +311,12 @@ const presentDetails = ({ PORT, userTheme, isSecure = false, userText }) => {
 	/**
 	 * @type { String }
 	 * @private
-	 * @description the enviroment is set to "Production" if a production env variable exists, otherwise it will
+	 * @description the environment is set to "Production" if a production env variable exists, otherwise it will
 	 * default to Development
 	 */
 
-	const enviroment = process.env.production ? 'Production' : 'Development';
+	const environment =
+		process.env.NODE_ENV === 'production' ? 'Production' : 'Development';
 
 	/**
 	 * @type { {} }
@@ -350,7 +346,7 @@ const presentDetails = ({ PORT, userTheme, isSecure = false, userText }) => {
 	/**
 	 * @type { {} }
 	 * @private
-	 * @description the text object mereges the default and user supplied text into each other to provide a complete
+	 * @description the text object merges the default and user supplied text into each other to provide a complete
 	 * text object.
 	 */
 
@@ -370,7 +366,7 @@ const presentDetails = ({ PORT, userTheme, isSecure = false, userText }) => {
 			// the variables are declared so that the regex replacer can access them
 
 			const vars = {
-				enviroment,
+				environment: environment,
 				local: composeAddress({ error: false, string: 'localhost' }),
 				ip: composeAddress(localIP),
 				hostname: composeAddress(localHostname),
@@ -466,13 +462,6 @@ ${buildAddressSection()}
 
 ${composeLine('notice')}
 `);
-
-	return {
-		theme,
-		localIP: localIP.string,
-		localHostname: localHostname.string,
-		enviroment,
-	};
 };
 
 exports.colours = colours;
