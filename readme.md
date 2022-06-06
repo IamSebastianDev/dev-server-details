@@ -18,7 +18,7 @@ npm i dev-server-details
 
 ## Overview
 
-The `presentDetails` method will log your current enviroment, your localaddress, the ip address and the hostname to the console. You can configure the theme as well as the actual text of the message using the inbuilt configuration API.
+The `presentDetails` method will log your current environment, your local address, the ip address and the hostname to the console. You can configure the theme as well as the actual text of the message using the inbuilt configuration API.
 
 ## Usage
 
@@ -29,7 +29,7 @@ import { presentDetails } from 'dev-server-details';
 
 // when creating your https server, you can pass in the
 // presentDetails method as the callback
-// and pass the choosen Port to it
+// and pass the chosen Port to it
 // The example below does this with a simple express server,
 // but any kind of HTTP Server will work.
 
@@ -47,11 +47,11 @@ Once your file runs and the server is created, you should see the details logged
 
 ## API Reference
 
-The following section describes all objects and methods exported by `dev-server-details`, the most important one being the `presentDetails` method, which is used to genereate the Detailed report.
+The following section describes all objects and methods exported by `dev-server-details`, the most important one being the `presentDetails` method, which is used to generate the Detailed report.
 
 ### `presentDetails()`
 
-The `presentDetails` method takes a single object as argument. The object is used to pass the PORT to the method as well as customize theming and the textoutput. It's properties are:
+The `presentDetails` method takes a single object as argument. The object is used to pass the PORT to the method as well as customize theming and the text output. It's properties are:
 
 | property name |  type   | description                                                                |
 | ------------- | :-----: | -------------------------------------------------------------------------- |
@@ -60,9 +60,9 @@ The `presentDetails` method takes a single object as argument. The object is use
 | userTheme     | object  | A object that can be used to change colors and look of the logged details. |
 | userText      | object  | A object that can be used to change the text output of the logged details. |
 
-> Note: The PORT property is all uppercase per convention, as unchangable constants should be all uppercase.
+> Note: The PORT property is all uppercase per convention, as unchangeable constants should be all uppercase.
 
-The Method's output will be logged to the console and contain the type of enviroment, as well as the local, ipv4 and hostname address of your server. The enviroment will default to "Development" unless `process.env.production` is set to true.
+The Method's output will be logged to the console and contain the type of environment, as well as the local, ipv4 and hostname address of your server. The environment will default to "Development" unless `process.env.production` is set to true.
 
 ### `colours {}`
 
@@ -103,20 +103,20 @@ A simple method to log all available colours to the console, to get a better und
 import { colours } from 'dev-server-details';
 
 colours.pallete();
-// Thus will log all availbale colours to the console.
+// Thus will log all available colours to the console.
 ```
 
 ### `themes {}`
 
 The `themes` object contains the default theme as well as a collection of different themes inspired by the seasons. You can use these predefined themes to style your output.
 
-| theme name    | property name  | description                                             |
-| ------------- | :------------: | ------------------------------------------------------- |
-| Default theme | themes.Default | The default theme that is used if nothing is changed.   |
-| Spring        | themes.spring  | A fresh and lively theme with greens and brigt colours. |
-| Summer        | themes.summer  | A bright and warm theme that looks like watermelon      |
-| Autumn        | themes.autumn  | A theme with muted and warm colours.                    |
-| Winter        | themes.winter  | A theme with bright and cold colours.                   |
+| theme name    | property name  | description                                              |
+| ------------- | :------------: | -------------------------------------------------------- |
+| Default theme | themes.Default | The default theme that is used if nothing is changed.    |
+| Spring        | themes.spring  | A fresh and lively theme with greens and bright colours. |
+| Summer        | themes.summer  | A bright and warm theme that looks like watermelon       |
+| Autumn        | themes.autumn  | A theme with muted and warm colours.                     |
+| Winter        | themes.winter  | A theme with bright and cold colours.                    |
 
 You can pass a prebuilt or custom theme like below:
 
@@ -136,11 +136,11 @@ The `theme` object can contain four different properties that will style differe
 | property name | description                                                                            |
 | ------------- | -------------------------------------------------------------------------------------- |
 | heading       | This is the first line of the output, which will by default print 'Dev-Server-Details' |
-| main          | The second line of the output will by default describe the Enviroment.                 |
+| main          | The second line of the output will by default describe the Environment.                |
 | text          | This section of the output contains the all the detailed information.                  |
 | notice        | A notice is printed as the last line of the output.                                    |
 
-Ommitting one of the properties is fine, in that case the default style will be used as a fallback.
+Omitting one of the properties is fine, in that case the default style will be used as a fallback.
 
 ## Texting
 
@@ -151,7 +151,7 @@ You can also change the text of the output via the `userText` property of the `p
 
 const defaultText = {
 	heading: 'Dev-Server-Details:',
-	main: `{{enviroment}} Enviroment served to:`,
+	main: `{{environment}} Environment served to:`,
 	text: [
 		'Local:    {{local}}',
 		'On your network:  {{ip}}',
@@ -163,18 +163,18 @@ const defaultText = {
 
 > Note: The text property **has** to be an array, even if it only contains one string.
 
-The properties used to describe the different text elements are `heading`, `main`, `text` & `notice`. Ommitting one of the properties is fine, the method will use the default text as fallback. To enable printing values inside the strings, see the list of exposed values below:
+The properties used to describe the different text elements are `heading`, `main`, `text` & `notice`. Omitting one of the properties is fine, the method will use the default text as fallback. To enable printing values inside the strings, see the list of exposed values below:
 
-| value name | description                                                                   |
-| ---------- | ----------------------------------------------------------------------------- |
-| enviroment | Will be either "Development" or "Production", depending on which flag is set. |
-| ip         | The ipV4 address.                                                             |
-| local      | The localhost address.                                                        |
-| hostname   | The hostname adress.                                                          |
-| port       | The PORT number that was assigned to the method.                              |
-| cwd        | The current working directory.                                                |
-| dir        | The name of the current directory.                                            |
-| time       | The current time.                                                             |
+| value name  | description                                                                   |
+| ----------- | ----------------------------------------------------------------------------- |
+| environment | Will be either "Development" or "Production", depending on which flag is set. |
+| ip          | The ipV4 address.                                                             |
+| local       | The localhost address.                                                        |
+| hostname    | The hostname address.                                                         |
+| port        | The PORT number that was assigned to the method.                              |
+| cwd         | The current working directory.                                                |
+| dir         | The name of the current directory.                                            |
+| time        | The current time.                                                             |
 
 You can use these values with the curly braces syntax demonstrated above.
 
